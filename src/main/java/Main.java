@@ -13,8 +13,8 @@ import java.util.Scanner;
 
 public class Main{
     public static void main(String[]args) {
-        String mappingName = "TIRE";
-        File mappings = new File(Main.class.getClassLoader().getResource("Mapping-"+mappingName+".xlsx").getFile());
+        String mappingName = "VVDF.xlsx";
+        File mappings = new File(Main.class.getClassLoader().getResource(mappingName).getFile());
         System.out.println(mappings.getPath());
         Scanner sc = new Scanner(System.in);
         System.out.println("Número de secciones para input: ");
@@ -22,11 +22,11 @@ public class Main{
         List<Integer> sectionInRows = new ArrayList<>();
         List<String> sectionInNames = new ArrayList<>();
         for(int i=0; i< sectionsIn; i++){
-            System.out.println("Ingrese número de fila de la sección"+(i+1)+": ");
+            System.out.println("Ingrese número de fila de la sección "+(i+1)+": ");
             Integer sec = sc.nextInt();
             sc.nextLine();
             sectionInRows.add(sec);
-            System.out.println("Ingrese número de fila final de la sección"+(i+1)+": ");
+            System.out.println("Ingrese número de fila final de la sección "+(i+1)+": ");
             Integer secFin = sc.nextInt();
             sc.nextLine();
             sectionInRows.add(secFin);
@@ -41,11 +41,11 @@ public class Main{
         List<Integer> sectionOutRows = new ArrayList<>();
         List<String> sectionOutNames = new ArrayList<>();
         for(int i=0; i< sectionsOut; i++){
-            System.out.println("Ingrese número de fila de la sección"+(i+1)+": ");
+            System.out.println("Ingrese número de fila de la sección "+(i+1)+": ");
             Integer sec = sc.nextInt();
             sc.nextLine();
             sectionOutRows.add(sec);
-            System.out.println("Ingrese número de fila final de la sección"+(i+1)+": ");
+            System.out.println("Ingrese número de fila final de la sección "+(i+1)+": ");
             Integer secFin = sc.nextInt();
             sc.nextLine();
             sectionOutRows.add(secFin);
@@ -72,7 +72,7 @@ public class Main{
                     String name = row.getCell(0).getStringCellValue();
                     double length = (int) row.getCell(2).getNumericCellValue();
                     System.out.println("Nombre: " + name + "\t" + length);
-                    input.add(new WBDP(name, (int)length));
+                    input.add(new WBDP(name.trim(), (int)length));
                 }
 
             }
@@ -83,7 +83,7 @@ public class Main{
                     String name = row.getCell(0).getStringCellValue();
                     double length = (int) row.getCell(2).getNumericCellValue();
                     System.out.println("Nombre: " + name + "\t" + length);
-                    output.add(new WBDP(name, (int)length));
+                    output.add(new WBDP(name.trim(), (int)length));
                 }
 
             }
@@ -132,7 +132,8 @@ public class Main{
     }
 
     public static StringBuilder createFL(List<WBDP> input){
-        StringBuilder output = new StringBuilder("<formlayout>\n");
+        StringBuilder output = new StringBuilder("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n");
+        output.append("<formlayout>\n");
         for(int i=0;i<input.size();i++){
             if(input.get(i).isHeader()){
                 output.append("\t<inputelement bind=\""+input.get(i).getName()+"\" title=\""+input.get(i).getName()+"\" type=\"PNL\" rows=\"30\" style=\"GRID\" />\n");
