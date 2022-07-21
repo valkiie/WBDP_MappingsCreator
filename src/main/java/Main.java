@@ -136,7 +136,7 @@ public class Main{
         output.append("<formlayout>\n");
         for(int i=0;i<input.size();i++){
             if(input.get(i).isHeader()){
-                output.append("\t<inputelement bind=\""+input.get(i).getName()+"\" title=\""+input.get(i).getName()+"\" type=\"PNL\" rows=\"30\" style=\"GRID\" />\n");
+                output.append("\t<inputelement bind=\""+input.get(i).getName()+"\" title=\""+input.get(i).getName()+"\" type=\"PNL\" rows=\"100\" style=\"GRID\" />\n");
             }else{
                 output.append("\t<inputelement bind=\""+input.get(i).getName()+"\" title=\""+input.get(i).getName()+"\" type=\"txt\"/>\n");
             }
